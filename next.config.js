@@ -13,6 +13,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ["www.munixfilms.com"],
+  },
 };
 
 module.exports = nextConfig;
