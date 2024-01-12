@@ -1,14 +1,21 @@
 import Image from "next/image";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  padding: 2.4rem;
+  background-color: var(--color-background-500);
+  border-radius: 9px;
+`;
 
 const MovieCard = ({ title, director, image }) => {
   return (
-    <div className="movie-card">
-      <Image src={image} alt="Movie Poster" width={225} height={330} />
-      <aside className="movie-card__info">
+    <Wrapper>
+      <Image src={image} alt="Movie Poster" width={150} height={220} />
+      <aside>
         <h2>{title}</h2>
         <h3>{director}</h3>
       </aside>
-    </div>
+    </Wrapper>
   );
 };
 

@@ -1,28 +1,42 @@
 import MovieCard from "@/components/MovieCard";
 import useSWR from "swr";
+import styled from "styled-components";
 
 const fetcher = async (URL) => {
-  const res = await fetch(URL);
-  const data = await res.json();
+  const response = await fetch(URL);
+  const data = await response.json();
   return data;
 };
+
+const H1 = styled.h1`
+  text-align: center;
+  margin-bottom: 1.2rem;
+`;
+
+const Ul = styled.ul`
+  list-style: none;
+`;
+
+const Li = styled.li`
+  margin-bottom: 1.6rem;
+`;
 
 export default function HomePage() {
   const { data: movies, isLoading } = useSWR("/api/movies", fetcher);
   return (
     <div>
-      <h1>MovieStar</h1>
-      <ul>
+      <H1>MovieStar</H1>
+      <Ul>
         {movies?.map((movie) => (
-          <li key={movie.id}>
+          <Li key={movie.id}>
             <MovieCard
               title={movie.title}
               director={movie.director}
               image={movie.image}
             />
-          </li>
+          </Li>
         ))}
-      </ul>
+      </Ul>
     </div>
   );
 }
