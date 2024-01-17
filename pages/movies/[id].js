@@ -3,6 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import data from "../api/movies/movies.json";
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const MovieDetailsWrapper = styled.section`
   padding: 2.4rem;
@@ -13,31 +16,31 @@ const MovieDetailsWrapper = styled.section`
 export default function MovieDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
-  console.log({ id });
-  const currentMovie = data.find((movie) => movie.id === id);
 
-  if (!currentMovie) {
-    return "Loading";
+  const { data: movie, isLoading } = useSWR(
+    id ? `/api/movies/${id}` : null,
+    fetcher
+  );
+
+  if (!movie) {
+    return;
   }
-  // const { data, error, isLoading } = useSWR("/api/movies", fetcher);
-
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Something bad happened</div>;
 
   return (
     <>
       <MovieDetailsWrapper>
         <Image
-          src={currentMovie.image}
+          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
           alt="Movie Poster"
           width={150}
           height={220}
         />
-        <p>{currentMovie.title}</p>
-        <p>Release Date: {currentMovie.releaseDate}</p>
-        <p>Duration: {currentMovie.duration}</p>
-        <p>Genre: {currentMovie.genre}</p>
-        <p>Rating: {currentMovie.rating}</p>
+        <p>Title:{movie.title}</p>
+        <p>Release Date: {movie.release_date}</p>
+        <p>Duration: {movie.runtime} min</p>
+        <p>Genre: {movie.genres[0].name}</p>
+        <p>Rating: {movie.vote_average}</p>
+        <p>{movie.overview}</p>
         <Link href="/">Home</Link>
       </MovieDetailsWrapper>
     </>
