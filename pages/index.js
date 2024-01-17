@@ -1,6 +1,7 @@
 import MovieCard from "@/components/MovieCard";
 import useSWR from "swr";
 import styled from "styled-components";
+import Link from "next/link";
 
 const fetcher = async (URL) => {
   const response = await fetch(URL);
@@ -28,13 +29,13 @@ export default function HomePage() {
       <H1>MovieStar</H1>
       <Ul>
         {movies?.map((movie) => (
-          <Li key={movie.id}>
+          <Link href={"./movies/" + movie.id} key={movie.id}>
             <MovieCard
               title={movie.title}
               director={movie.director}
               image={movie.image}
             />
-          </Li>
+          </Link>
         ))}
       </Ul>
     </div>
