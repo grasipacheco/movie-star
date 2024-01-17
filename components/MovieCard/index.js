@@ -7,13 +7,18 @@ const Wrapper = styled.div`
   border-radius: 9px;
 `;
 
-const MovieCard = ({ title, image, director }) => {
+const MovieCard = ({ title, release, image }) => {
   return (
     <Wrapper>
-      <Image src={image} alt="Movie Poster" width={150} height={220} />
+      <Image
+        src={`https://image.tmdb.org/t/p/original${image}`}
+        alt="Movie Poster"
+        width={300}
+        height={441}
+      />
       <aside>
-        <h2>{title}</h2>
-        <h3>{director}</h3>
+        <h3>{title}</h3>
+        <h3>{release}</h3>
       </aside>
     </Wrapper>
   );

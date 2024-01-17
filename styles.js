@@ -2,10 +2,14 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
 :root {
+    --color-primary: #507DBC;
+    --color-primary-light: #96b1d7;
     --color-background-100: #343a40;
     --color-background-500: #2b3035;
     --color-background-900: #212529;
     --color-text: #fff;
+
+    --color-error-background: #ffe6e6;
 }
   *,
   *::before,

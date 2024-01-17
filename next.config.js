@@ -14,8 +14,10 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["www.munixfilms.com"],
+    domains: ["image.tmdb.org"],
   },
 };
 
 module.exports = nextConfig;
+
+// "www.munixfilms.com",
