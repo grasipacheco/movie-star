@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   border-radius: 9px;
 `;
 
-const MovieCard = ({ title, director, image }) => {
+const MovieCard = ({ title, image, director }) => {
   return (
     <Wrapper>
       <Image src={image} alt="Movie Poster" width={150} height={220} />
