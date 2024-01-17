@@ -1,7 +1,13 @@
-import movies from "./movies.json";
+export default async function handler(request, response) {
+  const { search } = request.query;
+  const api_KEY = process.env.tmdbApiKey;
 
-export default function handler(request, response) {
   if (request.method === "GET") {
-    response.json(movies);
+    const result = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${search}&api_key=${api_KEY}`
+    );
+    const data = await result.json();
+
+    response.json(data);
   }
 }
