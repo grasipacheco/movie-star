@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SearchForm from "@/components/SearchForm";
 import { useState } from "react";
 import Link from "next/link";
+import { linkStyle } from "./movies/[id]";
 
 const fetcher = async (URL) => {
   const response = await fetch(URL);
@@ -25,6 +26,7 @@ const Li = styled.li`
 `;
 const H2 = styled.h2`
   margin-bottom: 1.6rem;
+  text-align: center;
 `;
 
 export default function HomePage({ onToggleFavorite, movieInfo }) {
@@ -48,7 +50,11 @@ export default function HomePage({ onToggleFavorite, movieInfo }) {
       <Ul>
         {movies?.results?.map((movie) => (
           <Li key={movie.id}>
-            <Link href={"./movies/" + movie.id} key={movie.id}>
+            <Link
+              href={"./movies/" + movie.id}
+              key={movie.id}
+              style={linkStyle}
+            >
               <MovieCard
                 title={movie.title}
                 release={movie.release_date}

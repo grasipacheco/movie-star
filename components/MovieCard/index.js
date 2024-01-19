@@ -4,10 +4,16 @@ import FavoriteButton from "../FavoriteButton";
 
 const Wrapper = styled.div`
   padding: 2.4rem;
-  background-color: var(--color-background-500);
+  background-color: var(--color-primary);
   border-radius: 9px;
   position: relative;
   z-index: 0;
+
+  ul {
+    font-size: 12px;
+    text-style: none;
+    margin-top: 2rem;
+  }
 `;
 
 const MovieCard = ({
@@ -31,7 +37,7 @@ const MovieCard = ({
         src={`https://image.tmdb.org/t/p/original${image}`}
         alt="Movie Poster"
         width={300}
-        height={441}
+        height={400}
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
