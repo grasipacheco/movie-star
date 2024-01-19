@@ -23,7 +23,7 @@ const Text = styled.p`
 
 const Ul = styled.ul`
   display: inline-grid;
-  justify-content: flex-end;
+  justify-content: center;
   float: right;
   align-content: stretch;
 `;
@@ -32,13 +32,13 @@ const List = styled.li`
   font-size: 12px;
   list-style: none;
   text-align: justify;
-  display: flex;
 `;
 
 const Title = styled.li`
   font-size: 15px;
   list-style: none;
   display: flex;
+  font-weight: bold;
 `;
 
 export default function MovieDetailsPage() {
@@ -60,15 +60,15 @@ export default function MovieDetailsPage() {
         <Image
           src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
           alt="Movie Poster"
-          width={150}
-          height={220}
+          width={100}
+          height={150}
         />
         <Ul>
           <Title>{movie.title}</Title>
           <List>{movie.release_date}</List>
           <List>{movie.runtime} min</List>
           <List>{movie.genres[0].name}</List>
-          <List>{movie.vote_average}</List>
+          <List>{movie.vote_average} ⭐</List>
         </Ul>
         <Text>{movie.overview}</Text>
         <StyledLink href="/">Home</StyledLink>

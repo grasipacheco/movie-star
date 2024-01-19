@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FavoriteButton from "../FavoriteButton";
 
 const Wrapper = styled.div`
-  padding: 2.4rem;
+  padding: 3rem;
   background-color: var(--color-primary);
   border-radius: 9px;
   position: relative;
@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 
 const ListAside = styled.section`
   text-decoration: none;
-  margin-top: 0.5rem;
   flex-direction: column;
   align-content: space-between;
 `;
@@ -38,7 +37,7 @@ const MovieCard = ({
         src={`https://image.tmdb.org/t/p/original${image}`}
         alt="Movie Poster"
         width={300}
-        height={400}
+        height={280}
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
