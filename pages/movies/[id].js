@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import useSWR from "swr";
+import StyledLink from "@/components/styledLink";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -12,19 +13,19 @@ const MovieDetailsWrapper = styled.div`
   border-radius: 9px;
   position: relative;
   z-index: 0;
+`;
 
-  ul {
-    display: inline-grid;
-    justify-content: flex-end;
-    float: right;
-    align-content: stretch;
-  }
+const Text = styled.p`
+  font-size: 14px;
+  text-align: justify;
+  margin: 1.5rem auto;
+`;
 
-  p {
-    font-size: 14px;
-    text-align: justify;
-    margin: 1.5rem auto;
-  }
+const Ul = styled.ul`
+  display: inline-grid;
+  justify-content: flex-end;
+  float: right;
+  align-content: stretch;
 `;
 
 const List = styled.li`
@@ -39,11 +40,6 @@ const Title = styled.li`
   list-style: none;
   display: flex;
 `;
-
-export const linkStyle = {
-  textDecoration: "none",
-  fontSize: "13px",
-};
 
 export default function MovieDetailsPage() {
   const router = useRouter();
@@ -67,17 +63,15 @@ export default function MovieDetailsPage() {
           width={150}
           height={220}
         />
-        <ul>
+        <Ul>
           <Title>{movie.title}</Title>
           <List>{movie.release_date}</List>
           <List>{movie.runtime} min</List>
           <List>{movie.genres[0].name}</List>
           <List>{movie.vote_average}</List>
-        </ul>
-        <p>{movie.overview}</p>
-        <Link href="/" style={linkStyle}>
-          Home
-        </Link>
+        </Ul>
+        <Text>{movie.overview}</Text>
+        <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>
   );

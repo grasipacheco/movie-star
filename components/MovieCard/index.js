@@ -8,12 +8,13 @@ const Wrapper = styled.div`
   border-radius: 9px;
   position: relative;
   z-index: 0;
+`;
 
-  ul {
-    font-size: 12px;
-    text-style: none;
-    margin-top: 2rem;
-  }
+const ListAside = styled.section`
+  text-decoration: none;
+  margin-top: 0.5rem;
+  flex-direction: column;
+  align-content: space-between;
 `;
 
 const MovieCard = ({
@@ -43,12 +44,12 @@ const MovieCard = ({
         ariaLabel="toggle FavoriteButton"
         onClick={handleFavoriteClick}
       >
-        {isFavorite ? "💙" : "🖤"}
+        {isFavorite ? "💙" : "♡"}
       </FavoriteButton>
-      <aside>
+      <ListAside>
         <h3>{title}</h3>
-        <h3>{release}</h3>
-      </aside>
+        <h4>{release}</h4>
+      </ListAside>
     </Wrapper>
   );
 };
