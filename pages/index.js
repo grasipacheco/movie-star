@@ -3,7 +3,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import SearchForm from "@/components/SearchForm";
 import { useState } from "react";
-import Link from "next/link";
+import StyledLink from "@/components/styledLink";
 
 const fetcher = async (URL) => {
   const response = await fetch(URL);
@@ -18,6 +18,9 @@ const H1 = styled.h1`
 
 const Ul = styled.ul`
   list-style: none;
+    font-size: 12px;
+    text-style: none;
+  }
 `;
 
 const Li = styled.li`
@@ -25,6 +28,7 @@ const Li = styled.li`
 `;
 const H2 = styled.h2`
   margin-bottom: 1.6rem;
+  text-align: center;
 `;
 
 export default function HomePage({ onToggleFavorite, movieInfo }) {
@@ -48,7 +52,7 @@ export default function HomePage({ onToggleFavorite, movieInfo }) {
       <Ul>
         {movies?.results?.map((movie) => (
           <Li key={movie.id}>
-            <Link href={"./movies/" + movie.id} key={movie.id}>
+            <StyledLink href={"./movies/" + movie.id} key={movie.id}>
               <MovieCard
                 title={movie.title}
                 release={movie.release_date}
@@ -57,7 +61,7 @@ export default function HomePage({ onToggleFavorite, movieInfo }) {
                 movieInfo={movieInfo}
                 id={movie.id}
               />
-            </Link>
+            </StyledLink>
           </Li>
         ))}
       </Ul>
