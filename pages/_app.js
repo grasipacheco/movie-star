@@ -24,10 +24,8 @@ export default function App({ Component, pageProps }) {
 
     fetcher
   );
-  console.log(movieInfo);
 
   function handleToggle(selectedId) {
-    console.log(selectedId);
     const selecetdMovie = movieInfo.find((movie) => movie.id === selectedId);
     if (selecetdMovie) {
       setMovieInfo(

@@ -11,10 +11,11 @@ const Li = styled.li`
 `;
 
 const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
+  const movieResults = movies?.results || movies;
   return (
     <>
       <Ul>
-        {movies?.results?.map((movie) => (
+        {movieResults?.map((movie) => (
           <Li key={movie.id}>
             <Link href={"./movies/" + movie.id} key={movie.id}>
               <MovieCard
