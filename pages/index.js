@@ -8,16 +8,9 @@ const H1 = styled.h1`
   margin-bottom: 1.2rem;
 `;
 
-const Ul = styled.ul`
-  list-style: none;
-`;
-
-const Li = styled.li`
-  margin-bottom: 1.6rem;
-`;
-
 const H2 = styled.h2`
   margin-bottom: 1.6rem;
+  text-align: center;
 `;
 
 export default function HomePage({

@@ -1,6 +1,7 @@
 import MovieCard from "../MovieCard";
 import Link from "next/link";
 import styled from "styled-components";
+import StyledLink from "../styledLink";
 
 const Ul = styled.ul`
   list-style: none;
@@ -17,7 +18,7 @@ const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
       <Ul>
         {movieResults?.map((movie) => (
           <Li key={movie.id}>
-            <Link href={"./movies/" + movie.id} key={movie.id}>
+            <StyledLink href={"./movies/" + movie.id} key={movie.id}>
               <MovieCard
                 title={movie.title}
                 release={movie.release_date}
@@ -26,7 +27,7 @@ const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
                 movieInfo={movieInfo}
                 id={movie.id}
               />
-            </Link>
+            </StyledLink>
           </Li>
         ))}
       </Ul>
