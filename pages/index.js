@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SearchForm from "@/components/SearchForm";
 
 import MovieList from "@/components/MovieList";
+import Link from "next/link";
 
 const H1 = styled.h1`
   text-align: center;
@@ -28,6 +29,7 @@ export default function HomePage({
     <div>
       <H1>MovieStar</H1>
       <SearchForm onSubmit={handleQueryName} />
+      <Link href={`/favorites`}>Favorites</Link>
       {query ? <H2>Search Results: {query}</H2> : <H2>Movies</H2>}
       <MovieList
         movies={movies}

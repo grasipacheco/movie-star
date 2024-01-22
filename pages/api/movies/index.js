@@ -15,6 +15,6 @@ export default async function handler(request, response) {
       return response.status(404).json({ status: "404 Not Found" });
     }
 
-    response.json(data);
+    response.json(data.results);
   }
 }
