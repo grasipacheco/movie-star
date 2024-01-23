@@ -44,7 +44,7 @@ const MovieCard = ({
         ariaLabel="toggle FavoriteButton"
         onClick={handleFavoriteClick}
       >
-        {isFavorite ? "💙" : "♡"}
+        {isFavorite ? "💙" : "🖤"}
       </FavoriteButton>
       <ListAside>
         <h3>{title}</h3>
