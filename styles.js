@@ -28,6 +28,6 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: var(--color-background-900);
     color: var(--color-text);
-    padding: 2rem;
+    padding: 0;
   }
 `;

@@ -1,5 +1,6 @@
 import GlobalStyle from "../styles";
 import styled from "styled-components";
+import Layout from "@/components/Layout";
 import { useState } from "react";
 
 const Main = styled.main`
@@ -37,6 +38,7 @@ export default function App({ Component, pageProps }) {
           movieInfo={movieInfo}
         />
       </Main>
+      <Layout />
     </>
   );
 }
