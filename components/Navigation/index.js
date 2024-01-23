@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 const MainDiv = styled.div`
   width: 100%;
-background-color:grey;
+  background-color: grey;
   position: fixed;
   bottom: 0;
 `;
 const Second = styled.div`
   width: 60%;
   height: 8rem;
-  margin-left:20%;
+  margin-left: 20%;
 
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@ export default function Navigation() {
     <MainDiv>
       <Second>
         <LinkItem href="/">Home</LinkItem>
-        <LinkItem href="/favorite">Favorite</LinkItem>
+        <LinkItem href="/favorites">Favorite</LinkItem>
       </Second>
     </MainDiv>
   );

@@ -2,6 +2,13 @@ import GlobalStyle from "../styles";
 import styled from "styled-components";
 import Layout from "@/components/Layout";
 import { useState } from "react";
+import useSWR from "swr";
+
+const fetcher = async (URL) => {
+  const response = await fetch(URL);
+  const data = await response.json();
+  return data;
+};
 
 const Main = styled.main`
   display: flex;
@@ -11,10 +18,15 @@ const Main = styled.main`
 
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
-  console.log(movieInfo);
+  const [query, setQuery] = useState("");
+
+  const { data: movies, isLoading } = useSWR(
+    `/api/movies?search=${query || "Jack+Reacher"}`,
+
+    fetcher
+  );
 
   function handleToggle(selectedId) {
-    console.log(selectedId);
     const selecetdMovie = movieInfo.find((movie) => movie.id === selectedId);
     if (selecetdMovie) {
       setMovieInfo(
@@ -36,6 +48,9 @@ export default function App({ Component, pageProps }) {
           {...pageProps}
           onToggleFavorite={handleToggle}
           movieInfo={movieInfo}
+          movies={movies}
+          query={query}
+          setQuery={setQuery}
         />
       </Main>
       <Layout />
