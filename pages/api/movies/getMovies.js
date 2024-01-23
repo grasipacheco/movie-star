@@ -15,7 +15,7 @@ export default async function handler(request, response) {
 
     const movieData = await Promise.all(moviePromises);
 
-    if (!movieData) {
+    if (movieData.length === 0) {
       return response.status(404).json({ status: "404 Not Found" });
     }
     response.status(200).json(movieData);

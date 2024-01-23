@@ -18,7 +18,6 @@ const Main = styled.main`
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
   const [query, setQuery] = useState("");
-  console.log(movieInfo);
 
   const { data: movies, isLoading } = useSWR(
     `/api/movies?search=${query || "Jack+Reacher"}`,
