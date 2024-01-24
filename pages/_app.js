@@ -10,12 +10,6 @@ const fetcher = async (URL) => {
   return data;
 };
 
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
   const [query, setQuery] = useState("");
@@ -43,7 +37,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Main>
+      <Layout>
         <Component
           {...pageProps}
           onToggleFavorite={handleToggle}
@@ -52,8 +46,7 @@ export default function App({ Component, pageProps }) {
           query={query}
           setQuery={setQuery}
         />
-      </Main>
-      <Layout />
+      </Layout>
     </>
   );
 }
