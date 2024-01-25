@@ -39,6 +39,33 @@ export default function App({ Component, pageProps }) {
       setMovieInfo([...movieInfo, { id: selectedId, isFavorite: true }]);
     }
   }
+
+  function handleReview(selectedId, event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    if (data.review.trim().length === 0) return;
+    event.target.reset();
+
+    const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
+
+    if (selectedMovie) {
+      setMovieInfo(
+        movieInfo.map((item) =>
+          item.id === selectedId
+            ? item.reviews
+              ? { ...item, reviews: [...item.reviews, data.review] }
+              : { ...item, reviews: [data.review] }
+            : item
+        )
+      );
+    } else {
+      setMovieInfo([
+        ...movieInfo,
+        { id: selectedId, isFavorite: false, reviews: [data.review] },
+      ]);
+    }
+  }
   return (
     <>
       <GlobalStyle />
@@ -50,6 +77,7 @@ export default function App({ Component, pageProps }) {
           movies={movies}
           query={query}
           setQuery={setQuery}
+          onSubmit={handleReview}
         />
       </Main>
     </>

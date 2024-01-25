@@ -4,7 +4,7 @@ import FavoriteButton from "../FavoriteButton";
 
 const Wrapper = styled.div`
   padding: 2.4rem;
-  background-color: var(--color-primary);
+  background-color: var(--color-background-500);
   border-radius: 9px;
   position: relative;
   z-index: 0;

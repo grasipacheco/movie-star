@@ -4,12 +4,14 @@ import Image from "next/image";
 import styled from "styled-components";
 import useSWR from "swr";
 import StyledLink from "@/components/styledLink";
+import ReviewForm from "@/components/ReviewForm";
+import Reviews from "@/components/Reviews";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const MovieDetailsWrapper = styled.div`
   padding: 2.4rem;
-  background-color: var(--color-primary);
+  background-color: var(--color-background-500);
   border-radius: 9px;
   position: relative;
   z-index: 0;
@@ -41,7 +43,7 @@ const Title = styled.li`
   display: flex;
 `;
 
-export default function MovieDetailsPage() {
+export default function MovieDetailsPage({ onSubmit, movieInfo }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -53,6 +55,10 @@ export default function MovieDetailsPage() {
   if (!movie) {
     return;
   }
+
+  const selectedReview = movieInfo.find(
+    (item) => item.id === movie.id
+  )?.reviews;
 
   return (
     <>
@@ -71,6 +77,8 @@ export default function MovieDetailsPage() {
           <List>{movie.vote_average}</List>
         </Ul>
         <Text>{movie.overview}</Text>
+        {selectedReview && <Reviews reviews={selectedReview} />}
+        <ReviewForm onSubmit={(event) => onSubmit(movie.id, event)} />
         <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>
