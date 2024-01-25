@@ -1,5 +1,6 @@
 import GlobalStyle from "../styles";
 import styled from "styled-components";
+import Layout from "@/components/Layout";
 import { useState } from "react";
 import useSWR from "swr";
 
@@ -8,12 +9,6 @@ const fetcher = async (URL) => {
   const data = await response.json();
   return data;
 };
-
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
@@ -69,7 +64,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Main>
+      <Layout>
         <Component
           {...pageProps}
           onToggleFavorite={handleToggle}
@@ -79,7 +74,7 @@ export default function App({ Component, pageProps }) {
           setQuery={setQuery}
           onSubmit={handleReview}
         />
-      </Main>
+      </Layout>
     </>
   );
 }

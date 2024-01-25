@@ -9,6 +9,7 @@ export default async function handler(request, response) {
         api_key,
       })}`
     );
+  
     const data = await result.json();
 
     if (!data) {
@@ -17,4 +18,5 @@ export default async function handler(request, response) {
 
     response.json(data.results);
   }
+
 }
