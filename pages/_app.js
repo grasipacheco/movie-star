@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    if (data.review.trim().length === 0) return;
+    if (!data.review.trim()) return;
     event.target.reset();
 
     const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
