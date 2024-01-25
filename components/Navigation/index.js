@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const MainDiv = styled.div`
   width: 100%;
-  background-color: grey;
+  background-color: var(--color-primary-light);
   position: fixed;
   bottom: 0;
 `;

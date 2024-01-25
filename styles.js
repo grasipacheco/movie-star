@@ -32,6 +32,6 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: var(--color-background-900);
     color: var(--color-text);
-    padding: 0;
+    padding: 0 0 8rem 0;
   }
 `;
