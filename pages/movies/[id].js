@@ -43,7 +43,7 @@ const Title = styled.li`
   display: flex;
 `;
 
-export default function MovieDetailsPage({ onSubmit, movieInfo }) {
+export default function MovieDetailsPage({ onSubmit, movieInfo,rating,setRating }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -78,7 +78,7 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
         </Ul>
         <Text>{movie.overview}</Text>
         {selectedReview && <Reviews reviews={selectedReview} />}
-        <ReviewForm onSubmit={(event) => onSubmit(movie.id, event)} />
+        <ReviewForm onSubmit={(event) => onSubmit(movie.id, event)} rating={rating} setRating={setRating} />
         <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>

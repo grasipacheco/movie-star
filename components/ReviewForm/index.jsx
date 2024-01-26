@@ -1,5 +1,6 @@
 import styled from "styled-components";
-
+import StarRaiting from "../StarRating";
+import { useState } from "react";
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -36,11 +37,12 @@ const Button = styled.button`
   }
 `;
 
-const ReviewForm = ({ onSubmit }) => {
+const ReviewForm = ({ onSubmit, rating, setRating }) => {
   return (
     <FormWrapper onSubmit={onSubmit}>
       <Label htmlFor="review">Add Review</Label>
       <InputText type="text" id="review" name="review" />
+      <StarRaiting rating={rating} setRating={setRating} />
       <Button type="submit">Send</Button>
     </FormWrapper>
   );

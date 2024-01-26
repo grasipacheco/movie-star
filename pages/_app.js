@@ -13,6 +13,7 @@ const fetcher = async (URL) => {
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
   const [query, setQuery] = useState("");
+  const [rating ,setRating] = useState(0)
 
   const { data: movies, isLoading } = useSWR(
     `/api/movies?search=${query || "Jack+Reacher"}`,
@@ -39,6 +40,10 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    
+    const newData = {...data,rating};
+    
+    
     if (!data.review.trim()) return;
     event.target.reset();
 
@@ -47,17 +52,20 @@ export default function App({ Component, pageProps }) {
     if (selectedMovie) {
       setMovieInfo(
         movieInfo.map((item) =>
+        
           item.id === selectedId
             ? item.reviews
-              ? { ...item, reviews: [...item.reviews, data.review] }
-              : { ...item, reviews: [data.review] }
+              ? { ...item, reviews: [...item.reviews,newData] }
+              : { ...item, reviews: [newData] }
             : item
         )
+        
       );
     } else {
       setMovieInfo([
         ...movieInfo,
-        { id: selectedId, isFavorite: false, reviews: [data.review] },
+        { id: selectedId, isFavorite: false, reviews: [newData] },
+        //data.review
       ]);
     }
   }
@@ -73,6 +81,8 @@ export default function App({ Component, pageProps }) {
           query={query}
           setQuery={setQuery}
           onSubmit={handleReview}
+          rating={rating}
+          setRating={setRating}
         />
       </Layout>
     </>
