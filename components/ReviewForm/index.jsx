@@ -37,13 +37,26 @@ const Button = styled.button`
   }
 `;
 
-const ReviewForm = ({ onSubmit, rating, setRating,handleAverageRating }) => {
+const ReviewForm = ({ onSubmit,movieId }) => {
+  const [rating, setRating] = useState(0);
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    if (!data.review.trim()) return;
+
+    const newData = { ...data, rating };
+    onSubmit(newData,movieId);
+    setRating(0);
+    event.target.reset();
+  }
   return (
-    <FormWrapper onSubmit={onSubmit}>
+    <FormWrapper onSubmit={handleSubmit}>
       <Label htmlFor="review">Add Review</Label>
-      <InputText type="text" id="review" name="review" required   />
+      <InputText type="text" id="review" name="review" required />
       <StarRaiting rating={rating} setRating={setRating} />
-      <Button type="submit" onClick={handleAverageRating}>Send</Button>
+      <Button type="submit">Send</Button>
     </FormWrapper>
   );
 };

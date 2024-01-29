@@ -13,22 +13,12 @@ const fetcher = async (URL) => {
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
   const [query, setQuery] = useState("");
-  const [rating, setRating] = useState(0);
-  
 
   const { data: movies, isLoading } = useSWR(
     `/api/movies?search=${query || "Jack+Reacher"}`,
 
     fetcher
   );
-
-  function handleAverageRating() {
-    return setAverage((average) => [...average, rating])
-     
-    
-    
-  }
-  
 
   function handleToggle(selectedId) {
     const selecetdMovie = movieInfo.find((movie) => movie.id === selectedId);
@@ -45,16 +35,9 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  function handleReview(selectedId, event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    const newData = { ...data, rating };
-
-    if (!data.review.trim()) return;
-    event.target.reset();
-   setRating(0)
+  function handleReview(newData,selectedId) {
+    
+   
     const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
 
     if (selectedMovie) {
@@ -71,7 +54,6 @@ export default function App({ Component, pageProps }) {
       setMovieInfo([
         ...movieInfo,
         { id: selectedId, isFavorite: false, reviews: [newData] },
-       
       ]);
     }
   }
@@ -87,10 +69,6 @@ export default function App({ Component, pageProps }) {
           query={query}
           setQuery={setQuery}
           onSubmit={handleReview}
-          rating={rating}
-          setRating={setRating}
-         
-          
         />
       </Layout>
     </>
