@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
   const [query, setQuery] = useState("");
   const [rating, setRating] = useState(0);
-  const [average, setAverage] = useState([]);
+  
 
   const { data: movies, isLoading } = useSWR(
     `/api/movies?search=${query || "Jack+Reacher"}`,
@@ -28,10 +28,7 @@ export default function App({ Component, pageProps }) {
     
     
   }
-  const avrUserRating = average.reduce(
-    (acc, cur, _, arr) => acc + cur / arr.length,
-    0
-  );
+  
 
   function handleToggle(selectedId) {
     const selecetdMovie = movieInfo.find((movie) => movie.id === selectedId);
@@ -92,8 +89,8 @@ export default function App({ Component, pageProps }) {
           onSubmit={handleReview}
           rating={rating}
           setRating={setRating}
-          handleAverageRating={handleAverageRating}
-          avrUserRating={avrUserRating}
+         
+          
         />
       </Layout>
     </>

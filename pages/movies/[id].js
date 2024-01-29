@@ -6,7 +6,7 @@ import useSWR from "swr";
 import StyledLink from "@/components/styledLink";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
-import RatingUser from "@/components/RatingUser";
+
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -44,7 +44,7 @@ const Title = styled.li`
   display: flex;
 `;
 
-export default function MovieDetailsPage({ onSubmit, movieInfo,rating,setRating ,handleAverageRating,avrUserRating}) {
+export default function MovieDetailsPage({ onSubmit, movieInfo,rating,setRating }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -76,11 +76,11 @@ export default function MovieDetailsPage({ onSubmit, movieInfo,rating,setRating 
           <List>{movie.runtime} min</List>
           <List>{movie.genres[0].name}</List>
           <List>{movie.vote_average}</List>
-          <RatingUser avrUserRating={avrUserRating}  />
+         
         </Ul>
         <Text>{movie.overview}</Text>
         {selectedReview && <Reviews reviews={selectedReview} />}
-        <ReviewForm onSubmit={(event) => onSubmit(movie.id, event)} rating={rating} setRating={setRating} handleAverageRating={handleAverageRating}  />
+        <ReviewForm onSubmit={(event) => onSubmit(movie.id, event)} rating={rating} setRating={setRating}   />
         <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>
