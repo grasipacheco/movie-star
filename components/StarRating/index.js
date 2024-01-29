@@ -10,12 +10,12 @@ export default function StarRaiting({ maxRating = 10 , rating,setRating }) {
   return (
     <MainStarContainer>
       <StarContainer>
-        {Array.from({ length: maxRating }, (_, i) => (
+        {Array.from({ length: maxRating }, (_, index) => (
           <Star
-            key={i}
-            onRate={() => handleRating(i + 1)}
-            full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
-            onHoverIn={() => setTempRating(i + 1)}
+            key={index}
+            onRate={() => handleRating(index + 1)}
+            full={tempRating ? tempRating >= index + 1 : rating >= index + 1}
+            onHoverIn={() => setTempRating(index + 1)}
             onHoverOut={() => setTempRating(0)}
           />
         ))}

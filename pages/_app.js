@@ -13,12 +13,24 @@ const fetcher = async (URL) => {
 export default function App({ Component, pageProps }) {
   const [movieInfo, setMovieInfo] = useState([]);
   const [query, setQuery] = useState("");
-  const [rating ,setRating] = useState(0)
+  const [rating, setRating] = useState(0);
+  const [average, setAverage] = useState([]);
 
   const { data: movies, isLoading } = useSWR(
     `/api/movies?search=${query || "Jack+Reacher"}`,
 
     fetcher
+  );
+
+  function handleAverageRating() {
+    return setAverage((average) => [...average, rating])
+     
+    
+    
+  }
+  const avrUserRating = average.reduce(
+    (acc, cur, _, arr) => acc + cur / arr.length,
+    0
   );
 
   function handleToggle(selectedId) {
@@ -40,32 +52,29 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    
-    const newData = {...data,rating};
-    
-    
+
+    const newData = { ...data, rating };
+
     if (!data.review.trim()) return;
     event.target.reset();
-
+   setRating(0)
     const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
 
     if (selectedMovie) {
       setMovieInfo(
         movieInfo.map((item) =>
-        
           item.id === selectedId
             ? item.reviews
-              ? { ...item, reviews: [...item.reviews,newData] }
+              ? { ...item, reviews: [...item.reviews, newData] }
               : { ...item, reviews: [newData] }
             : item
         )
-        
       );
     } else {
       setMovieInfo([
         ...movieInfo,
         { id: selectedId, isFavorite: false, reviews: [newData] },
-        //data.review
+       
       ]);
     }
   }
@@ -83,6 +92,8 @@ export default function App({ Component, pageProps }) {
           onSubmit={handleReview}
           rating={rating}
           setRating={setRating}
+          handleAverageRating={handleAverageRating}
+          avrUserRating={avrUserRating}
         />
       </Layout>
     </>

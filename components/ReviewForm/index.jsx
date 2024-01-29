@@ -37,13 +37,13 @@ const Button = styled.button`
   }
 `;
 
-const ReviewForm = ({ onSubmit, rating, setRating }) => {
+const ReviewForm = ({ onSubmit, rating, setRating,handleAverageRating }) => {
   return (
     <FormWrapper onSubmit={onSubmit}>
       <Label htmlFor="review">Add Review</Label>
-      <InputText type="text" id="review" name="review" />
+      <InputText type="text" id="review" name="review" required   />
       <StarRaiting rating={rating} setRating={setRating} />
-      <Button type="submit">Send</Button>
+      <Button type="submit" onClick={handleAverageRating}>Send</Button>
     </FormWrapper>
   );
 };
