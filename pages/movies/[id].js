@@ -7,6 +7,7 @@ import StyledLink from "@/components/styledLink";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
 
+
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const MovieDetailsWrapper = styled.div`
@@ -75,10 +76,11 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
           <List>{movie.runtime} min</List>
           <List>{movie.genres[0].name}</List>
           <List>{movie.vote_average}</List>
+         
         </Ul>
         <Text>{movie.overview}</Text>
         {selectedReview && <Reviews reviews={selectedReview} />}
-        <ReviewForm onSubmit={(event) => onSubmit(movie.id, event)} />
+        <ReviewForm onSubmit={onSubmit} movieId={movie.id} />
         <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>

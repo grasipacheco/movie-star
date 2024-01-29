@@ -35,13 +35,9 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  function handleReview(selectedId, event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    if (!data.review.trim()) return;
-    event.target.reset();
-
+  function handleReview(newData,selectedId) {
+    
+   
     const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
 
     if (selectedMovie) {
@@ -49,15 +45,15 @@ export default function App({ Component, pageProps }) {
         movieInfo.map((item) =>
           item.id === selectedId
             ? item.reviews
-              ? { ...item, reviews: [...item.reviews, data.review] }
-              : { ...item, reviews: [data.review] }
+              ? { ...item, reviews: [...item.reviews, newData] }
+              : { ...item, reviews: [newData] }
             : item
         )
       );
     } else {
       setMovieInfo([
         ...movieInfo,
-        { id: selectedId, isFavorite: false, reviews: [data.review] },
+        { id: selectedId, isFavorite: false, reviews: [newData] },
       ]);
     }
   }
