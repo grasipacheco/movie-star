@@ -7,7 +7,6 @@ import StyledLink from "@/components/styledLink";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
 
-
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const MovieDetailsWrapper = styled.div`
@@ -61,6 +60,14 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
     (item) => item.id === movie.id
   )?.reviews;
 
+  const averageRating = selectedReview
+    ?.map((review) => review.rating)
+    .reduce(
+      (accumulator, currentValue, index, array) =>
+        accumulator + currentValue / array.length,
+      0
+    );
+
   return (
     <>
       <MovieDetailsWrapper>
@@ -75,8 +82,8 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
           <List>{movie.release_date}</List>
           <List>{movie.runtime} min</List>
           <List>{movie.genres[0].name}</List>
-          <List>{movie.vote_average}</List>
-         
+          <List>TMDB Rating: {movie.vote_average}</List>
+          <List>User Rating: {averageRating}</List>
         </Ul>
         <Text>{movie.overview}</Text>
         {selectedReview && <Reviews reviews={selectedReview} />}
