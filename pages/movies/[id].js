@@ -83,7 +83,7 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
           <List>{movie.runtime} min</List>
           <List>{movie.genres[0].name}</List>
           <List>TMDB Rating: {movie.vote_average}</List>
-          <List>User Rating: {averageRating}</List>
+          <List>User Rating: {averageRating ? averageRating : 0}</List>
         </Ul>
         <Text>{movie.overview}</Text>
         {selectedReview && <Reviews reviews={selectedReview} />}
