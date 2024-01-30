@@ -35,9 +35,7 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  function handleReview(newData,selectedId) {
-    
-   
+  function handleReview(newData, selectedId) {
     const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
 
     if (selectedMovie) {
