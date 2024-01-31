@@ -1,36 +1,70 @@
 import styled from "styled-components";
-import Star from "../Star";
-import { useState } from "react";
-export default function StarRaiting({ maxRating = 10 , rating,setRating }) {
- 
-  const [tempRating, setTempRating] = useState(0);
-  function handleRating(rating) {
-    setRating(rating);
-  }
-  return (
-    <MainStarContainer>
-      <StarContainer>
-        {Array.from({ length: maxRating }, (_, index) => (
-          <Star
-            key={index}
-            onRate={() => handleRating(index + 1)}
-            full={tempRating ? tempRating >= index + 1 : rating >= index + 1}
-            onHoverIn={() => setTempRating(index + 1)}
-            onHoverOut={() => setTempRating(0)}
-          />
-        ))}
-      </StarContainer>
-      <p> {tempRating || rating} </p>
-    </MainStarContainer>
-  );
-}
+import FullStar from "../../public/icons/FullStar.svg";
+import EmptyStar from "../../public/icons/EmptyStar.svg";
 
-const MainStarContainer = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.6rem;
 `;
-const StarContainer = styled.div`
+
+const StarWrapper = styled.div`
   display: flex;
-  gap: 2px;
 `;
+
+const textStyle = styled.p`
+  line-height: 1;
+`;
+
+const InputRating = styled.input`
+  display: none;
+`;
+
+export default function StarRating({
+  rating,
+  setRating,
+  tempRating,
+  setTempRating,
+}) {
+  return (
+    <Wrapper>
+      <StarWrapper>
+        {Array.from({ length: 10 }, (_, i) => (
+          <Star
+            key={Math.random()}
+            full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+            onClick={() => setRating(i + 1)}
+            onMouseEnter={() => setTempRating(i + 1)}
+            onMouseLeave={() => setTempRating(0)}
+          />
+        ))}
+      </StarWrapper>
+      <p>{tempRating || rating || ""}</p>
+      <InputRating
+        required
+        type="number"
+        name="rating"
+        value={rating}
+        onChange={setRating}
+      />
+    </Wrapper>
+  );
+}
+export const StarStyle = styled.span`
+  height: 2.4rem;
+  width: 2.4rem;
+  display: block;
+  cursor: pointer;
+`;
+function Star({ onClick, full, onMouseEnter, onMouseLeave }) {
+  return (
+    <StarStyle
+      role="button"
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {full ? <FullStar /> : <EmptyStar />}
+    </StarStyle>
+  );
+}
