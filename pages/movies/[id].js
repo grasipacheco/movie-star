@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
+
 import Image from "next/image";
 import styled from "styled-components";
 import useSWR from "swr";
 import StyledLink from "@/components/styledLink";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
+import { useState } from "react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -43,7 +44,16 @@ const Title = styled.li`
   display: flex;
 `;
 
-export default function MovieDetailsPage({ onSubmit, movieInfo }) {
+export default function MovieDetailsPage({
+  onSubmit,
+  movieInfo,
+  rating,
+  setRating,
+  onEdit,
+  isEditMode,
+  setIsEditMode,
+}) {
+  const [editReviewId, setEditReviewId] = useState(null);
   const router = useRouter();
   const { id } = router.query;
 
@@ -56,11 +66,13 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
     return;
   }
 
-  const selectedReview = movieInfo.find(
-    (item) => item.id === movie.id
-  )?.reviews;
+  function onEditReview(reviewId) {
+    setEditReviewId(reviewId);
+  }
 
-  const averageRating = selectedReview
+  const reviews = movieInfo.find((item) => item.id === movie.id)?.reviews;
+
+  const averageRating = reviews
     ?.map((review) => review.rating)
     .reduce(
       (accumulator, currentValue, index, array) =>
@@ -86,8 +98,23 @@ export default function MovieDetailsPage({ onSubmit, movieInfo }) {
           <List>User Rating: {averageRating ? averageRating : 0}</List>
         </Ul>
         <Text>{movie.overview}</Text>
-        {selectedReview && <Reviews reviews={selectedReview} />}
-        <ReviewForm onSubmit={onSubmit} movieId={movie.id} />
+        <Reviews
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          reviews={reviews}
+          onEdit={onEditReview}
+          movieId={movie.id}
+        />
+        <ReviewForm
+          isEditMode={isEditMode}
+          rating={rating}
+          setRating={setRating}
+          onSubmit={isEditMode ? onEdit : onSubmit}
+          setIsEditMode={setIsEditMode}
+          value={isEditMode ? reviews : ""}
+          movieId={movie.id}
+          reviewId={editReviewId}
+        />
         <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>

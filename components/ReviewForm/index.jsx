@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import StarRaiting from "../StarRating";
+import StarRating from "../StarRating";
 import { useState } from "react";
 const FormWrapper = styled.form`
   display: flex;
@@ -37,25 +37,41 @@ const Button = styled.button`
   }
 `;
 
-const ReviewForm = ({ onSubmit,movieId }) => {
+const ReviewForm = ({ onSubmit, movieId, isEditMode, reviewId }) => {
   const [rating, setRating] = useState(0);
+  const [tempRating, setTempRating] = useState(0);
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    if (!data.review.trim()) return;
+    const { review, rating } = data;
+    const parsedRating = Number(rating);
 
-    const newData = { ...data, rating };
-    onSubmit(newData,movieId);
+    if (!data.review.trim() || parsedRating === 0) return;
+
     setRating(0);
+    setTempRating(0);
     event.target.reset();
+
+    if (isEditMode)
+      onSubmit({ movieId, reviewId, review, rating: parsedRating });
+    else onSubmit({ movieId, review, rating: parsedRating });
   }
+
   return (
     <FormWrapper onSubmit={handleSubmit}>
-      <Label htmlFor="review">Add Review</Label>
+      <Label htmlFor="review">
+        {isEditMode ? "Edit Review" : "Add Review"}
+      </Label>
       <InputText type="text" id="review" name="review" required />
-      <StarRaiting rating={rating} setRating={setRating} />
+      <StarRating
+        rating={rating}
+        setRating={setRating}
+        tempRating={tempRating}
+        setTempRating={setTempRating}
+      />
       <Button type="submit">Send</Button>
     </FormWrapper>
   );
