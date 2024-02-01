@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   return (
     <Main>
       {children}
-      <Navigation />;
+      <Navigation />
     </Main>
   );
 }

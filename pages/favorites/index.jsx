@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import MovieList from "@/components/MovieList";
 import useSWR from "swr";
 import styled from "styled-components";
+import { FavoritesContext } from "@/pages/_app";
 
 const H1 = styled.h1`
   text-align: center;
@@ -21,10 +23,8 @@ const Message = styled.p`
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
-  const favoritesIds = movieInfo
-    .filter((item) => item.isFavorite)
-    .map((movie) => movie.id);
+const FavoritePages = () => {
+  const { favorites: favoritesIds } = useContext(FavoritesContext);
 
   const { data: favoriteMovies, isLoading } = useSWR(
     favoritesIds.length > 0
@@ -41,11 +41,7 @@ const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
       <H1>MovieStar</H1>
       <H2>Favorite Movies</H2>
       {favoriteMovies && favoriteMovies.length > 0 ? (
-        <MovieList
-          movies={favoriteMovies}
-          movieInfo={movieInfo}
-          onToggleFavorite={onToggleFavorite}
-        />
+        <MovieList movies={favoriteMovies} />
       ) : (
         <Message>No favorite movies found</Message>
       )}

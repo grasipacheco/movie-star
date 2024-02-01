@@ -43,7 +43,7 @@ const Title = styled.li`
   display: flex;
 `;
 
-function MovieDetails({ onSubmit, movieInfo }) {
+function MovieDetails() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -52,8 +52,12 @@ function MovieDetails({ onSubmit, movieInfo }) {
     fetcher
   );
 
+  if (isLoading) {
+    return <>loading...</>;
+  }
+
   if (!movie) {
-    return;
+    return <>movie not found</>;
   }
 
   return (

@@ -23,6 +23,11 @@ export default createGlobalStyle`
     padding: 0;
   }
 
+  a,
+  a:visited {
+    color: white;
+  }
+
   html {
     font-size: 62.5%;
   }

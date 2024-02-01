@@ -11,21 +11,14 @@ const Li = styled.li`
   margin-bottom: 1.6rem;
 `;
 
-const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
+const MovieList = ({ movies }) => {
   return (
     <>
       <Ul>
         {movies?.map((movie) => (
           <Li key={movie.id}>
             <StyledLink href={"./movies/" + movie.id}>
-              <MovieCard
-                title={movie.title}
-                release={movie.release_date}
-                image={movie.poster_path}
-                onToggleFavorite={() => onToggleFavorite(movie.id)}
-                movieInfo={movieInfo}
-                id={movie.id}
-              />
+              <MovieCard movie={movie} />
             </StyledLink>
           </Li>
         ))}

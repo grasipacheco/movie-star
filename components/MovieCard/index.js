@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "../FavoriteButton";
+import { useContext } from "react";
+import { FavoritesContext } from "@/pages/_app";
 
 const Wrapper = styled.div`
   padding: 2.4rem;
@@ -17,38 +20,33 @@ const ListAside = styled.section`
   align-content: space-between;
 `;
 
-const MovieCard = ({
-  title,
-  release,
-  image,
-  onToggleFavorite,
-  movieInfo,
-  id,
-}) => {
-  const selectedMovie = movieInfo?.find((item) => item.id === id);
-  const isFavorite = selectedMovie ? selectedMovie.isFavorite : false;
+const MovieCard = ({ movie }) => {
+  const { title, release_date, poster_path, id } = movie;
 
-  const handleFavoriteClick = (event) => {
-    event.preventDefault();
-    onToggleFavorite();
-  };
+  const { favorites, setFavorites } = useContext(FavoritesContext);
+
+  console.log(favorites);
+  console.log(id);
+
+  const isFavorite = favorites.find((favoriteId) => favoriteId === id);
+
   return (
     <Wrapper>
       <Image
-        src={`https://image.tmdb.org/t/p/original${image}`}
+        src={`https://image.tmdb.org/t/p/original${poster_path}`}
         alt="Movie Poster"
         width={300}
         height={400}
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
-        onClick={handleFavoriteClick}
+        onClick={() => console.log(favorites.push(id))}
       >
         {isFavorite ? "💙" : "🖤"}
       </FavoriteButton>
       <ListAside>
         <h3>{title}</h3>
-        <h4>{release}</h4>
+        <h4>{release_date}</h4>
       </ListAside>
     </Wrapper>
   );
