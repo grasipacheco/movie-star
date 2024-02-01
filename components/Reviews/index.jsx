@@ -40,18 +40,28 @@ const UpdateDeleteWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const Reviews = ({ reviews, isEditMode, setIsEditMode, onEdit }) => {
+const Reviews = ({
+  reviews,
+  isEditMode,
+  setIsEditMode,
+  onEdit,
+  onDelete,
+  movieId,
+}) => {
   function editHandler(id) {
     setIsEditMode(!isEditMode);
     onEdit(id);
   }
+
+  const displayReview = reviews && reviews?.length !== 0;
+
   return (
-    reviews && (
+    displayReview && (
       <>
         <H3>Reviews</H3>
         <Wrapper>
           <Ul>
-            {reviews.map((review, index) => (
+            {reviews?.map((review, index) => (
               <Li key={index}>
                 <P>{review.review}</P>
                 <RatingWrapper>
@@ -60,6 +70,9 @@ const Reviews = ({ reviews, isEditMode, setIsEditMode, onEdit }) => {
                 </RatingWrapper>
                 <UpdateDeleteWrapper>
                   <button onClick={() => editHandler(review.id)}>✍</button>
+                  <button onClick={() => onDelete(review.id, movieId)}>
+                    🗑️
+                  </button>
                 </UpdateDeleteWrapper>
               </Li>
             ))}

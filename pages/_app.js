@@ -86,6 +86,19 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+  function handleDelete(reviewId, movieId) {
+    setMovieInfo(
+      movieInfo.map((movie) =>
+        movie.id === movieId
+          ? {
+              ...movie,
+              reviews: movie.reviews.filter((review) => review.id !== reviewId),
+            }
+          : movie
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -101,6 +114,7 @@ export default function App({ Component, pageProps }) {
           onEdit={handleEdit}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
+          onDelete={handleDelete}
         />
       </Layout>
     </>

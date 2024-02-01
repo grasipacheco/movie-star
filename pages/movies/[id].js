@@ -52,6 +52,7 @@ export default function MovieDetailsPage({
   onEdit,
   isEditMode,
   setIsEditMode,
+  onDelete
 }) {
   const [editReviewId, setEditReviewId] = useState(null);
   const router = useRouter();
@@ -104,6 +105,7 @@ export default function MovieDetailsPage({
           reviews={reviews}
           onEdit={onEditReview}
           movieId={movie.id}
+          onDelete={onDelete}
         />
         <ReviewForm
           isEditMode={isEditMode}
