@@ -23,10 +23,7 @@ const ListAside = styled.section`
 const MovieCard = ({ movie }) => {
   const { title, release_date, poster_path, id } = movie;
 
-  const { favorites, setFavorites } = useContext(FavoritesContext);
-
-  console.log(favorites);
-  console.log(id);
+  const { favorites } = useContext(FavoritesContext);
 
   const isFavorite = favorites.find((favoriteId) => favoriteId === id);
 
@@ -40,7 +37,7 @@ const MovieCard = ({ movie }) => {
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
-        onClick={() => console.log(favorites.push(id))}
+        onClick={() => favorites.push(id)}
       >
         {isFavorite ? "💙" : "🖤"}
       </FavoriteButton>

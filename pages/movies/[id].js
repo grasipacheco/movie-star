@@ -112,7 +112,6 @@ export default function MovieDetailsPage() {
     updater(`/api/reviews/${id}`, "DELETE", {
       reviewId,
     }).then(() => {
-      console.log("success");
       mutate(`/api/reviews/${id}`);
     });
   }

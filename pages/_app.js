@@ -5,12 +5,12 @@ import { createContext, useState } from "react";
 export const FavoritesContext = createContext();
 
 export default function App({ Component, pageProps }) {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites] = useState([]);
   return (
     <>
       <GlobalStyle />
       <Layout>
-        <FavoritesContext.Provider value={{ favorites, setFavorites }}>
+        <FavoritesContext.Provider value={{ favorites }}>
           <Component {...pageProps} />
         </FavoritesContext.Provider>
       </Layout>
