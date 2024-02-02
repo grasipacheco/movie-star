@@ -22,9 +22,10 @@ const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
                 title={movie.title}
                 release={movie.release_date}
                 image={movie.poster_path}
-                onToggleFavorite={() => onToggleFavorite(movie.id)}
+                onToggleFavorite={onToggleFavorite}
                 movieInfo={movieInfo}
                 id={movie.id}
+                localData={movie.localData}
               />
             </StyledLink>
           </Li>

@@ -1,3 +1,5 @@
+import { getMovieInfo } from "@/components/db/utils";
+
 export default async function handler(request, response) {
   const { search } = request.query;
   const api_key = process.env.tmdbApiKey;
@@ -9,14 +11,20 @@ export default async function handler(request, response) {
         api_key,
       })}`
     );
-  
-    const data = await result.json();
+
+    const movieData = await result.json();
+
+    const dataPromises = movieData.results.map(async (movie) => {
+      const dbData = await getMovieInfo(movie.id);
+      return { ...movie, localData: dbData };
+    });
+
+    const data = await Promise.all(dataPromises);
 
     if (!data) {
       return response.status(404).json({ status: "404 Not Found" });
     }
 
-    response.json(data.results);
+    response.json(data);
   }
-
 }

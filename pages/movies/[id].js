@@ -52,7 +52,7 @@ export default function MovieDetailsPage({
   onEdit,
   isEditMode,
   setIsEditMode,
-  onDelete
+  onDelete,
 }) {
   const [editReviewId, setEditReviewId] = useState(null);
   const router = useRouter();
@@ -62,6 +62,8 @@ export default function MovieDetailsPage({
     id ? `/api/movies/${id}` : null,
     fetcher
   );
+
+  console.log(movie);
 
   if (!movie) {
     return;

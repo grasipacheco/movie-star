@@ -17,25 +17,23 @@ export default function App({ Component, pageProps }) {
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const { data: movies, isLoading } = useSWR(
+  const {
+    data: movies,
+    isLoading,
+    mutate,
+  } = useSWR(
     `/api/movies?search=${query || "Jack+Reacher"}`,
 
     fetcher
   );
 
-  function handleToggle(selectedId) {
-    const selecetdMovie = movieInfo.find((movie) => movie.id === selectedId);
-    if (selecetdMovie) {
-      setMovieInfo(
-        movieInfo.map((item) =>
-          item.id === selectedId
-            ? { id: selectedId, isFavorite: !item.isFavorite }
-            : item
-        )
-      );
-    } else {
-      setMovieInfo([...movieInfo, { id: selectedId, isFavorite: true }]);
-    }
+  async function handleToggle(isFavorite, movieId) {
+    await fetch(`/api/movies/toggleFavorite`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ movieId, isFavorite }),
+    });
+    mutate();
   }
 
   function handleReview(data) {

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SearchForm from "@/components/SearchForm";
+import useSWR from "swr";
 
 import MovieList from "@/components/MovieList";
 import Link from "next/link";
