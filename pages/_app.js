@@ -27,6 +27,8 @@ export default function App({ Component, pageProps }) {
     fetcher
   );
 
+  console.log(movies);
+
   async function handleToggle(isFavorite, movieId) {
     await fetch(`/api/movies/toggleFavorite`, {
       method: "PATCH",

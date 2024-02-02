@@ -30,7 +30,7 @@ const MovieCard = ({
     event.preventDefault();
     onToggleFavorite(localData.isFavorite, localData.movieId);
   };
-  console.log(localData);
+
   return (
     <Wrapper>
       <Image

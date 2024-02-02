@@ -21,15 +21,9 @@ const Message = styled.p`
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
-  const favoritesIds = movieInfo
-    .filter((item) => item.isFavorite)
-    .map((movie) => movie.id);
-
+const FavoritePages = ({ onToggleFavorite }) => {
   const { data: favoriteMovies, isLoading } = useSWR(
-    favoritesIds.length > 0
-      ? `/api/movies/getMovies?ids=${favoritesIds.join(",")}`
-      : null,
+    `/api/movies/favorites`,
     fetcher
   );
   if (isLoading) {
@@ -43,7 +37,6 @@ const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
       {favoriteMovies && favoriteMovies.length > 0 ? (
         <MovieList
           movies={favoriteMovies}
-          movieInfo={movieInfo}
           onToggleFavorite={onToggleFavorite}
         />
       ) : (
