@@ -1,5 +1,5 @@
-import dbConnect from "@/components/db/connect";
-import Movie from "@/components/db/model/Movie";
+import dbConnect from "@/db/connect";
+import Movie from "@/db/model/Movie";
 
 export default async function handler(request, response) {
   await dbConnect();

@@ -1,6 +1,6 @@
-import dbConnect from "@/components/db/connect";
-import Movie from "@/components/db/model/Movie";
-import Review from "@/components/db/model/Review";
+import dbConnect from "@/db/connect";
+import Movie from "@/db/model/Movie";
+import Review from "@/db/model/Review";
 
 export default async function handler(request, response) {
   const { id } = request.query;
@@ -30,7 +30,6 @@ export default async function handler(request, response) {
     try {
       const movie = await Movie.findOne({ movieId: id });
       const { reviewId } = request.body;
-
 
       const reviewIds = movie.reviews;
 

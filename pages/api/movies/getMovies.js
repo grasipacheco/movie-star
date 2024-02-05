@@ -1,5 +1,4 @@
-import { getMovieInfo } from "@/components/db/utils";
-import Movie from "@/components/db/model/Movie";
+import { getMovieInfo } from "@/db/utils";
 
 export default async function handler(request, response) {
   const { ids } = request.query;
