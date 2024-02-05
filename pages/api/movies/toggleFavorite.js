@@ -6,7 +6,7 @@ export default async function handler(request, response) {
 
   if (request.method === "PATCH") {
     const { movieId, isFavorite } = request.body;
-    console.log(movieId, isFavorite);
+
     await Movie.findOneAndUpdate(
       { movieId },
       {

@@ -22,12 +22,22 @@ const Message = styled.p`
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const FavoritePages = ({ onToggleFavorite }) => {
-  const { data: favoriteMovies, isLoading } = useSWR(
-    `/api/movies/favorites`,
-    fetcher
-  );
+  const {
+    data: favoriteMovies,
+    isLoading,
+    mutate,
+  } = useSWR(`/api/movies/favorites`, fetcher);
   if (isLoading) {
     return <p>Loading...</p>;
+  }
+
+  async function handleToggle(isFavorite, movieId) {
+    await fetch(`/api/movies/toggleFavorite`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ movieId, isFavorite }),
+    });
+    mutate();
   }
 
   return (
@@ -35,10 +45,7 @@ const FavoritePages = ({ onToggleFavorite }) => {
       <H1>MovieStar</H1>
       <H2>Favorite Movies</H2>
       {favoriteMovies && favoriteMovies.length > 0 ? (
-        <MovieList
-          movies={favoriteMovies}
-          onToggleFavorite={onToggleFavorite}
-        />
+        <MovieList movies={favoriteMovies} onToggleFavorite={handleToggle} />
       ) : (
         <Message>No favorite movies found</Message>
       )}

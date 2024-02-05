@@ -44,17 +44,9 @@ const Title = styled.li`
   display: flex;
 `;
 
-export default function MovieDetailsPage({
-  onSubmit,
-  movieInfo,
-  rating,
-  setRating,
-  onEdit,
-  isEditMode,
-  setIsEditMode,
-  onDelete,
-}) {
+export default function MovieDetailsPage({ rating, setRating }) {
   const [editReviewId, setEditReviewId] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
@@ -64,8 +56,6 @@ export default function MovieDetailsPage({
     mutate,
   } = useSWR(id ? `/api/movies/${id}` : null, fetcher);
 
-  console.log(movie);
-
   if (!movie) {
     return;
   }
@@ -74,9 +64,7 @@ export default function MovieDetailsPage({
     setEditReviewId(reviewId);
   }
 
-  const reviews = movieInfo.find((item) => item.id === movie.id)?.reviews;
-
-  const averageRating = reviews
+  const averageRating = movie.localData.reviews
     ?.map((review) => review.rating)
     .reduce(
       (accumulator, currentValue, index, array) =>
@@ -148,7 +136,7 @@ export default function MovieDetailsPage({
           setRating={setRating}
           onSubmit={isEditMode ? handleEditReview : handleCreateReview}
           setIsEditMode={setIsEditMode}
-          value={isEditMode ? reviews : ""}
+          value={isEditMode ? movie.localData.reviews : ""}
           movieId={movie.id}
           reviewId={editReviewId}
         />

@@ -3,6 +3,7 @@ import Movie from "@/components/db/model/Movie";
 import dbConnect from "@/components/db/connect";
 
 export default async function handler(request, response) {
+  dbConnect();
   const api_key = process.env.tmdbApiKey;
 
   if (request.method === "GET") {

@@ -30,8 +30,7 @@ export default async function handler(request, response) {
     try {
       const movie = await Movie.findOne({ movieId: id });
       const { reviewId } = request.body;
-      // console.log(_id);
-      // console.log(movie);
+
 
       const reviewIds = movie.reviews;
 
@@ -55,16 +54,12 @@ export default async function handler(request, response) {
 
   if (request.method === "PATCH") {
     try {
-      // const { review, rating } = request.body;
-      console.log(request.body);
       const { review, rating, reviewId: _id } = request.body;
 
       await Review.findByIdAndUpdate(_id, {
         review,
         rating,
       });
-
-      // await Movie.findOneAndUpdate({ movieId: id }, { reviews: updatedIds });
 
       response.status(201).json({ status: "Review created" });
     } catch (error) {

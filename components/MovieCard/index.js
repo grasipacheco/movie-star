@@ -22,7 +22,6 @@ const MovieCard = ({
   release,
   image,
   onToggleFavorite,
-  movieInfo,
   id,
   localData,
 }) => {

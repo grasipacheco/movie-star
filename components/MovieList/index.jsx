@@ -11,7 +11,7 @@ const Li = styled.li`
   margin-bottom: 1.6rem;
 `;
 
-const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
+const MovieList = ({ movies, onToggleFavorite }) => {
   return (
     <>
       <Ul>
@@ -23,7 +23,6 @@ const MovieList = ({ movies, movieInfo, onToggleFavorite }) => {
                 release={movie.release_date}
                 image={movie.poster_path}
                 onToggleFavorite={onToggleFavorite}
-                movieInfo={movieInfo}
                 id={movie.id}
                 localData={movie.localData}
               />
