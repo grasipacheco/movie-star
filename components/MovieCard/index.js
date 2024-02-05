@@ -1,26 +1,20 @@
 import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "../FavoriteButton";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
-  padding: 2.4rem;
+  padding: 1.8rem;
   /* background-color: var(--color-background-500); */
   border-radius: 1rem;
   position: relative;
   z-index: 0;
   background-color: #5473a1;
-  box-shadow: 4px 4px #8c8c8c;
+  box-shadow: 0.5rem 0.5rem var(--color-background-200);
 `;
 
 const MovieTitle = styled.h3`
-  /* position: absolute;
-  bottom: 100px;
-  /* left: 50%; */
-  /* padding: 8px;
-  margin: 0;
-  transform: translateX(-50%); */
   margin-top: 0.8rem;
   margin-bottom: 0.8rem;
   font-size: 1.4rem;
@@ -30,7 +24,6 @@ const ListAside = styled.section`
   text-decoration: none;
   flex-direction: column;
   align-content: space-between;
-  
 `;
 
 const MovieCard = ({
@@ -40,7 +33,6 @@ const MovieCard = ({
   onToggleFavorite,
   movieInfo,
   id,
-  voteAverage,
 }) => {
   const selectedMovie = movieInfo?.find((item) => item.id === id);
   const isFavorite = selectedMovie ? selectedMovie.isFavorite : false;
@@ -57,7 +49,9 @@ const MovieCard = ({
         width={300}
         height={400}
         position="relative"
-        border-radius="10px"
+        style={{
+          borderRadius: 10,
+        }}
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
@@ -66,7 +60,13 @@ const MovieCard = ({
       />
       <ListAside>
         <MovieTitle>{title}</MovieTitle>
-        <h3><FontAwesomeIcon icon={faCalendarAlt} style={{marginRight: "0.8rem", fontSize: "1.2rem"}}/>{release}</h3>
+        <h3>
+          <FontAwesomeIcon
+            icon={faCalendarAlt}
+            style={{ marginRight: "0.8rem", fontSize: "1.2rem" }}
+          />
+          {release}
+        </h3>
       </ListAside>
     </Wrapper>
   );

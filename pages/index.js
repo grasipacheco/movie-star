@@ -8,6 +8,13 @@ const H2 = styled.h2`
   text-align: center;
 `;
 
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+`
+
 export default function HomePage({
   onToggleFavorite,
   movieInfo,
@@ -19,16 +26,8 @@ export default function HomePage({
     setQuery(data);
   }
 
-  console.log(movies);
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-      }}
-    >
+    <Wrapper>
       <PageTitle>MovieStar</PageTitle>
       <SearchForm onSubmit={handleQueryName} />
       {query ? <H2>Search Results: {query}</H2> : <H2>Movies</H2>}
@@ -37,6 +36,6 @@ export default function HomePage({
         movieInfo={movieInfo}
         onToggleFavorite={onToggleFavorite}
       />
-    </div>
+    </Wrapper>
   );
 }

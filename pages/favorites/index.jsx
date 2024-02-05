@@ -16,6 +16,10 @@ const Message = styled.p`
   transform: translate(-50%, -50%);
 `;
 
+const SectionWrapper = styled.section`
+  width: 100%;
+`;
+
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
@@ -34,7 +38,7 @@ const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
   }
 
   return (
-    <section style={{width: "100%"}}>
+    <SectionWrapper>
       <PageTitle>MovieStar</PageTitle>
       <H2>Favorite Movies</H2>
       {favoriteMovies && favoriteMovies.length > 0 ? (
@@ -46,7 +50,7 @@ const FavoritePages = ({ onToggleFavorite, movieInfo }) => {
       ) : (
         <Message>No favorite movies found</Message>
       )}
-    </section>
+    </SectionWrapper>
   );
 };
 

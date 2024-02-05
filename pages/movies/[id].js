@@ -18,8 +18,6 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const MovieDetailsWrapper = styled.div`
   background-color: #001f3f;
-  /* border-radius: 9px;
-  position: relative; */
   z-index: 0;
   padding: 20px;
   border-radius: 10px;
@@ -33,12 +31,6 @@ const Text = styled.p`
 `;
 
 const Ul = styled.ul`
-  /* display: inline-grid;
-  justify-content: flex-start;
-  align-content: right; */
-  /* flex: 1; */
-  /* display: flex;
-  flex-direction: column; */
   float: right;
   justify-content: flex-start;
 `;
@@ -106,7 +98,9 @@ export default function MovieDetailsPage({
           alt="Movie Poster"
           width={150}
           height={220}
-          border-radius="10px"
+          style={{
+            borderRadius: 10,
+          }}
         />
         <Ul>
           <Title>{movie.title}</Title>

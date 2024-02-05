@@ -15,24 +15,6 @@ const MainDiv = styled.div`
   height: 50px;
 `;
 
-//
-// bottom: 0;
-// padding: 20px;
-// display: flex;
-//justify-content: center;
-//
-// height: 10%;
-// left: 0;
-//
-// const Second = styled.div`
-//   width: 60%;
-//   height: 8rem;
-//   margin-left: 20%;
-
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-// `;
 const LinkItem = styled(Link)`
   font-size: 3rem;
   text-decoration: none;
@@ -49,6 +31,7 @@ const LinkItem = styled(Link)`
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
   svg {
     color: black;
     margin: 0 auto;

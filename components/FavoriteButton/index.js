@@ -6,11 +6,11 @@ const StyledButton = styled.button`
   cursor: pointer;
   background: none;
   position: absolute;
-  top: 30px;
+  bottom: 20px;
   right: 40px;
   border: none;
   svg {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 `;
 
