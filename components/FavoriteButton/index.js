@@ -1,24 +1,27 @@
 import styled from "styled-components";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const StyledButton = styled.button`
-  font-size: 2.4rem;
-  height: auto;
-  aspect-ratio: 1;
+  margin-top: 8px;
   cursor: pointer;
-  appearance: none;
-  background-color: inherit;
-  border: none;
+  background: none;
   position: absolute;
-  top: 3.2rem;
-  right: 3.2rem;
-  z-index: 1;
-  border-radius: 25%;
+  top: 30px;
+  right: 40px;
+  border: none;
+  svg {
+    font-size: 2rem;
+  }
 `;
 
-const FavoriteButton = ({ onClick, ariaLabel, children }) => {
+const FavoriteButton = ({ onClick, ariaLabel, isFavorite }) => {
   return (
     <StyledButton aria-label={ariaLabel} onClick={onClick}>
-      {children}
+      {isFavorite ? (
+        <AiFillHeart color="red"/>
+      ) : (
+        <AiOutlineHeart style={{ strokeWidth: 50, color: "red" }}/>
+      )}
     </StyledButton>
   );
 };

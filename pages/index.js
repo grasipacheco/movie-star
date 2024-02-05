@@ -1,16 +1,10 @@
 import styled from "styled-components";
 import SearchForm from "@/components/SearchForm";
-
 import MovieList from "@/components/MovieList";
 import Link from "next/link";
-
-const H1 = styled.h1`
-  text-align: center;
-  margin-bottom: 1.2rem;
-`;
+import PageTitle from "@/components/PageTitle";
 
 const H2 = styled.h2`
-  margin-bottom: 1.6rem;
   text-align: center;
 `;
 
@@ -25,9 +19,17 @@ export default function HomePage({
     setQuery(data);
   }
 
+  console.log(movies);
   return (
-    <div>
-      <H1>MovieStar</H1>
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
+      <PageTitle>MovieStar</PageTitle>
       <SearchForm onSubmit={handleQueryName} />
       {query ? <H2>Search Results: {query}</H2> : <H2>Movies</H2>}
       <MovieList
