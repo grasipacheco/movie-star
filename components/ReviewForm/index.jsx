@@ -38,6 +38,7 @@ const Button = styled.button`
 `;
 
 const ReviewForm = ({ onSubmit, movieId, isEditMode, reviewId }) => {
+  console.log(reviewId);
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
 

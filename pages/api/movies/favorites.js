@@ -1,21 +1,20 @@
-import { getMovieInfo } from "@/db/utils";
+import Movie from "@/db/model/Movie";
+import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
-  const { ids } = request.query;
+  dbConnect();
   const api_key = process.env.tmdbApiKey;
 
   if (request.method === "GET") {
-    const idArray = ids.split(",").map((id) => parseInt(id));
+    const favoriteMovies = await Movie.find({ isFavorite: true });
 
-    const moviePromises = idArray.map(async (id) => {
+    const moviePromises = favoriteMovies.map(async (movie) => {
       const result = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}`
+        `https://api.themoviedb.org/3/movie/${movie.movieId}?api_key=${api_key}`
       );
       const movieData = await result.json();
 
-      const dbData = await getMovieInfo(id);
-
-      const data = { ...movieData, localData: dbData };
+      const data = { ...movieData, localData: movie };
 
       return data;
     });

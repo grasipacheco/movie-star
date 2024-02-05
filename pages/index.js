@@ -2,7 +2,14 @@ import styled from "styled-components";
 import SearchForm from "@/components/SearchForm";
 
 import MovieList from "@/components/MovieList";
-import Link from "next/link";
+import { useState } from "react";
+import useSWR from "swr";
+
+const fetcher = async (URL) => {
+  const response = await fetch(URL);
+  const data = await response.json();
+  return data;
+};
 
 const H1 = styled.h1`
   text-align: center;
@@ -14,13 +21,27 @@ const H2 = styled.h2`
   text-align: center;
 `;
 
-export default function HomePage({
-  onToggleFavorite,
-  movieInfo,
-  movies,
-  query,
-  setQuery,
-}) {
+export default function HomePage({}) {
+  const [query, setQuery] = useState("");
+
+  const {
+    data: movies,
+    isLoading,
+    mutate,
+  } = useSWR(
+    `/api/movies?search=${query || "Jack+Reacher"}`,
+
+    fetcher
+  );
+  async function handleToggle(isFavorite, movieId) {
+    await fetch(`/api/movies/toggleFavorite`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ movieId, isFavorite }),
+    });
+    mutate();
+  }
+
   function handleQueryName(data) {
     setQuery(data);
   }
@@ -30,11 +51,7 @@ export default function HomePage({
       <H1>MovieStar</H1>
       <SearchForm onSubmit={handleQueryName} />
       {query ? <H2>Search Results: {query}</H2> : <H2>Movies</H2>}
-      <MovieList
-        movies={movies}
-        movieInfo={movieInfo}
-        onToggleFavorite={onToggleFavorite}
-      />
+      <MovieList movies={movies} onToggleFavorite={handleToggle} />
     </div>
   );
 }
