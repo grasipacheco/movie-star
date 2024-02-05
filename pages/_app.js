@@ -38,33 +38,47 @@ export default function App({ Component, pageProps }) {
     mutate();
   }
 
-  function handleReview(data) {
-    const { movieId: selectedId, review, rating } = data;
-    const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
+  // async function handleRevieww(isFavorite, movieId) {
+  //   await fetch(`/api/movies/toggleFavorite`, {
+  //     method: "PATCH",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ movieId, isFavorite }),
+  //   });
+  //   mutate();
+  // }
 
-    if (selectedMovie) {
-      setMovieInfo(
-        movieInfo.map((item) =>
-          item.id === selectedId
-            ? item.reviews
-              ? {
-                  ...item,
-                  reviews: [...item.reviews, { review, rating, id: uuidv4() }],
-                }
-              : { ...item, reviews: [{ review, rating, id: uuidv4() }] }
-            : item
-        )
-      );
-    } else {
-      setMovieInfo([
-        ...movieInfo,
-        {
-          id: selectedId,
-          isFavorite: false,
-          reviews: [{ review, rating, id: uuidv4() }],
-        },
-      ]);
-    }
+  async function handleReview(data) {
+    // await fetch(`/api/movies/${}.reviews`, {
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ review: data.review, rating: data.review }),
+    // });
+    // mutate();
+    // const { movieId: selectedId, review, rating } = data;
+    // const selectedMovie = movieInfo.find((movie) => movie.id === selectedId);
+    // if (selectedMovie) {
+    //   setMovieInfo(
+    //     movieInfo.map((item) =>
+    //       item.id === selectedId
+    //         ? item.reviews
+    //           ? {
+    //               ...item,
+    //               reviews: [...item.reviews, { review, rating, id: uuidv4() }],
+    //             }
+    //           : { ...item, reviews: [{ review, rating, id: uuidv4() }] }
+    //         : item
+    //     )
+    //   );
+    // } else {
+    //   setMovieInfo([
+    //     ...movieInfo,
+    //     {
+    //       id: selectedId,
+    //       isFavorite: false,
+    //       reviews: [{ review, rating, id: uuidv4() }],
+    //     },
+    //   ]);
+    // }
   }
 
   function handleEdit(data) {

@@ -58,10 +58,11 @@ export default function MovieDetailsPage({
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: movie, isLoading } = useSWR(
-    id ? `/api/movies/${id}` : null,
-    fetcher
-  );
+  const {
+    data: movie,
+    isLoading,
+    mutate,
+  } = useSWR(id ? `/api/movies/${id}` : null, fetcher);
 
   console.log(movie);
 
@@ -82,6 +83,38 @@ export default function MovieDetailsPage({
         accumulator + currentValue / array.length,
       0
     );
+
+  async function handleCreateReview(data) {
+    await fetch(`/api/movies/${id}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ review: data.review, rating: data.rating }),
+    });
+    mutate();
+  }
+
+  async function handleDeleteReview(idReview) {
+    await fetch(`/api/movies/${id}/reviews`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reviewId: idReview }),
+    });
+    mutate();
+  }
+
+  async function handleEditReview(data) {
+    await fetch(`/api/movies/${id}/reviews`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        review: data.review,
+        rating: data.rating,
+        reviewId: data.reviewId,
+      }),
+    });
+    mutate();
+    setIsEditMode(false);
+  }
 
   return (
     <>
@@ -104,16 +137,16 @@ export default function MovieDetailsPage({
         <Reviews
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
-          reviews={reviews}
+          reviews={movie.localData.reviews}
           onEdit={onEditReview}
           movieId={movie.id}
-          onDelete={onDelete}
+          onDelete={handleDeleteReview}
         />
         <ReviewForm
           isEditMode={isEditMode}
           rating={rating}
           setRating={setRating}
-          onSubmit={isEditMode ? onEdit : onSubmit}
+          onSubmit={isEditMode ? handleEditReview : handleCreateReview}
           setIsEditMode={setIsEditMode}
           value={isEditMode ? reviews : ""}
           movieId={movie.id}
