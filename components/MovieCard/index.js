@@ -26,13 +26,13 @@ const ListAside = styled.section`
 `;
 
 const StyledImage = styled(Image)`
-border-radius: 10px;
-`
+  border-radius: 10px;
+`;
 
 const StyledFont = styled(FontAwesomeIcon)`
-margin-right: 0.8rem;
-font-size: 1.2rem;
-`
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+`;
 
 const MovieCard = ({
   title,
@@ -52,19 +52,19 @@ const MovieCard = ({
       <StyledImage
         src={`https://image.tmdb.org/t/p/original${image}`}
         alt="Movie Poster"
-        width={300} 
+        width={300}
         height={400}
         position="relative"
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
         onClick={handleFavoriteClick}
+        isFavorite={localData.isFavorite}
+      />
       <ListAside>
         <MovieTitle>{title}</MovieTitle>
         <h3>
-          <StyledFont
-            icon={faCalendarAlt}
-          />
+          <StyledFont icon={faCalendarAlt} />
           {release}
         </h3>
       </ListAside>
