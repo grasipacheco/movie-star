@@ -39,16 +39,14 @@ const MovieCard = ({
   release,
   image,
   onToggleFavorite,
-  movieInfo,
   id,
+  localData,
 }) => {
-  const selectedMovie = movieInfo?.find((item) => item.id === id);
-  const isFavorite = selectedMovie ? selectedMovie.isFavorite : false;
-
   const handleFavoriteClick = (event) => {
     event.preventDefault();
-    onToggleFavorite();
+    onToggleFavorite(localData.isFavorite, localData.movieId);
   };
+
   return (
     <Wrapper>
       <StyledImage
@@ -61,8 +59,6 @@ const MovieCard = ({
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
         onClick={handleFavoriteClick}
-        isFavorite={isFavorite}
-      />
       <ListAside>
         <MovieTitle>{title}</MovieTitle>
         <h3>

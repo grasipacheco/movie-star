@@ -60,24 +60,17 @@ margin-right: 0.8rem;
 font-size: 1.2rem;
 `
 
-export default function MovieDetailsPage({
-  onSubmit,
-  movieInfo,
-  rating,
-  setRating,
-  onEdit,
-  isEditMode,
-  setIsEditMode,
-  onDelete,
-}) {
+export default function MovieDetailsPage({ rating, setRating }) {
   const [editReviewId, setEditReviewId] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: movie, isLoading } = useSWR(
-    id ? `/api/movies/${id}` : null,
-    fetcher
-  );
+  const {
+    data: movie,
+    isLoading,
+    mutate,
+  } = useSWR(id ? `/api/movies/${id}` : null, fetcher);
 
   if (!movie) {
     return;
@@ -87,15 +80,45 @@ export default function MovieDetailsPage({
     setEditReviewId(reviewId);
   }
 
-  const reviews = movieInfo.find((item) => item.id === movie.id)?.reviews;
-
-  const averageRating = reviews
+  const averageRating = movie.localData.reviews
     ?.map((review) => review.rating)
     .reduce(
       (accumulator, currentValue, index, array) =>
         accumulator + currentValue / array.length,
       0
     );
+
+  async function handleCreateReview(data) {
+    await fetch(`/api/movies/${id}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ review: data.review, rating: data.rating }),
+    });
+    mutate();
+  }
+
+  async function handleDeleteReview(idReview) {
+    await fetch(`/api/movies/${id}/reviews`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reviewId: idReview }),
+    });
+    mutate();
+  }
+
+  async function handleEditReview(data) {
+    await fetch(`/api/movies/${id}/reviews`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        review: data.review,
+        rating: data.rating,
+        reviewId: data.reviewId,
+      }),
+    });
+    mutate();
+    setIsEditMode(false);
+  }
 
   return (
     <div>
@@ -121,18 +144,18 @@ export default function MovieDetailsPage({
         <Reviews
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
-          reviews={reviews}
+          reviews={movie.localData.reviews}
           onEdit={onEditReview}
           movieId={movie.id}
-          onDelete={onDelete}
+          onDelete={handleDeleteReview}
         />
         <ReviewForm
           isEditMode={isEditMode}
           rating={rating}
           setRating={setRating}
-          onSubmit={isEditMode ? onEdit : onSubmit}
+          onSubmit={isEditMode ? handleEditReview : handleCreateReview}
           setIsEditMode={setIsEditMode}
-          value={isEditMode ? reviews : ""}
+          value={isEditMode ? movie.localData.reviews : ""}
           movieId={movie.id}
           reviewId={editReviewId}
         />
