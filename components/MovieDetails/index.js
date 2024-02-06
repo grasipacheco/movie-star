@@ -15,7 +15,6 @@ const MovieDetailsWrapper = styled.div`
   border-radius: 9px;
   position: relative;
   z-index: 0;
-  padding: 0 20px;
 `;
 
 const Text = styled.p`
@@ -65,7 +64,6 @@ function MovieDetails({ onSubmit, movieInfo }) {
           alt="Movie Poster"
           width={150}
           height={220}
-          padding={"20px"}
         />
         <Ul>
           <Title>{movie.title}</Title>
@@ -75,7 +73,9 @@ function MovieDetails({ onSubmit, movieInfo }) {
           <List>{movie.vote_average}</List>
         </Ul>
         <Text>{movie.overview}</Text>
+
         <ReviewForm onSubmit={onSubmit} />
+        <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
     </>
   );

@@ -1,23 +1,25 @@
 import Link from "next/link";
 import styled from "styled-components";
-import Home from "../../public/icons/Home.svg";
-import Favorites from "../../public/icons/Favorites.svg";
-import { AiOutlineHome, AiOutlineHeart } from "react-icons/ai";
 
 const MainDiv = styled.div`
-  position: fixed;
-  background-color: var(--color-primary-light);
-  display: flex;
-  padding: 16px;
   width: 100%;
-  border-top: 1px solid black;
+  background-color: var(--color-primary-light);
+  position: fixed;
   bottom: 0;
-  height: 50px;
 `;
+const Second = styled.div`
+  width: 60%;
+  height: 8rem;
+  margin-left: 20%;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 const LinkItem = styled(Link)`
   font-size: 3rem;
   text-decoration: none;
+  color: white;
   border: none;
   outline: none;
   border-radius: 9px;
@@ -28,25 +30,15 @@ const LinkItem = styled(Link)`
     box-shadow: 0 0 1.5rem 0.5rem var(--color-primary-light);
     transform: translateY(-2px);
   }
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  svg {
-    color: black;
-    margin: 0 auto;
-  }
 `;
 
 export default function Navigation() {
   return (
     <MainDiv>
-      <LinkItem href="/">
-        <AiOutlineHome size={40} />
-      </LinkItem>
-      <LinkItem href="/favorites">
-        <AiOutlineHeart size={40} />
-      </LinkItem>
+      <Second>
+        <LinkItem href="/">Home</LinkItem>
+        <LinkItem href="/favorites">Favorite</LinkItem>
+      </Second>
     </MainDiv>
   );
 }

@@ -5,12 +5,11 @@ import StyledLink from "../styledLink";
 
 const Ul = styled.ul`
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 `;
 
-const Li = styled.li``;
+const Li = styled.li`
+  margin-bottom: 1.6rem;
+`;
 
 const MovieList = ({ movies, onToggleFavorite }) => {
   return (

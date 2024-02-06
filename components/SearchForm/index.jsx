@@ -59,9 +59,10 @@ const SearchForm = ({ onSubmit }) => {
       <Input
         type="text"
         name="title"
-        placeholder="Search for movie"
-        aria-label="Search for movie"
+        placeholder="Type movie name"
+        aria-label="Type movie name"
       />
+      <Button type="submit">Find Movies</Button>
       {errorMessage && <Error message={errorMessage} />}
     </Form>
   );

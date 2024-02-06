@@ -3,25 +3,19 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
 import useSWR from "swr";
+import StyledLink from "@/components/styledLink";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
 import { useState } from "react";
-import PageTitle from "@/components/PageTitle";
-import FullStar from "../../public/icons/FullStar.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const MovieDetailsWrapper = styled.div`
-  background-color: #001f3f;
+  padding: 2.4rem;
+  background-color: var(--color-background-500);
+  border-radius: 9px;
+  position: relative;
   z-index: 0;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Text = styled.p`
@@ -31,8 +25,10 @@ const Text = styled.p`
 `;
 
 const Ul = styled.ul`
+  display: inline-grid;
+  justify-content: flex-end;
   float: right;
-  justify-content: flex-start;
+  align-content: stretch;
 `;
 
 const List = styled.li`
@@ -40,25 +36,13 @@ const List = styled.li`
   list-style: none;
   text-align: justify;
   display: flex;
-  margin-bottom: 8px;
 `;
 
 const Title = styled.li`
-  font-size: 1.8rem;
+  font-size: 15px;
   list-style: none;
   display: flex;
-  margin-bottom: 1.5rem;
-  align-items: center;
 `;
-
-const StyledImage = styled(Image)`
-border-radius: 10px;
-`
-
-const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
-margin-right: 0.8rem; 
-font-size: 1.2rem;
-`
 
 export default function MovieDetailsPage({ rating, setRating }) {
   const [editReviewId, setEditReviewId] = useState(null);
@@ -121,10 +105,8 @@ export default function MovieDetailsPage({ rating, setRating }) {
   }
 
   return (
-    <div>
-      <PageTitle>MovieStar</PageTitle>
+    <>
       <MovieDetailsWrapper>
-       <div style={{display: "flex", gap: "10px", marginTop: "10px"}}>
         <Image
           src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
           alt="Movie Poster"
@@ -133,13 +115,12 @@ export default function MovieDetailsPage({ rating, setRating }) {
         />
         <Ul>
           <Title>{movie.title}</Title>
-          <List><StyledFontAwesomeIcon icon={faCalendarAlt} /> {movie.release_date} </List>
-          <List><StyledFontAwesomeIcon icon={faClock}/>{movie.runtime} min</List>
-          <List><StyledFontAwesomeIcon icon={faFilm}/>{movie.genres[0].name} </List>
-          <List><FullStar width={15} style={{marginRight: "0.5rem", fontSize: "1.2rem"}}/>TMDB Rating: {movie.vote_average} /10</List>
-          <List><FullStar width={15} style={{marginRight: "0.5rem", fontSize: "1.2rem"}}/>User Rating: {averageRating ? averageRating : 0} /10</List>
+          <List>{movie.release_date}</List>
+          <List>{movie.runtime} min</List>
+          <List>{movie.genres[0].name}</List>
+          <List>TMDB Rating: {movie.vote_average}</List>
+          <List>User Rating: {averageRating ? averageRating : 0}</List>
         </Ul>
-        </div>
         <Text>{movie.overview}</Text>
         <Reviews
           isEditMode={isEditMode}
@@ -159,7 +140,8 @@ export default function MovieDetailsPage({ rating, setRating }) {
           movieId={movie.id}
           reviewId={editReviewId}
         />
+        <StyledLink href="/">Home</StyledLink>
       </MovieDetailsWrapper>
-    </div>
+    </>
   );
 }
