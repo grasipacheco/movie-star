@@ -51,6 +51,15 @@ const Title = styled.li`
   align-items: center;
 `;
 
+const StyledImage = styled(Image)`
+border-radius: 10px;
+`
+
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+margin-right: 0.8rem; 
+font-size: 1.2rem;
+`
+
 export default function MovieDetailsPage({
   onSubmit,
   movieInfo,
@@ -98,15 +107,12 @@ export default function MovieDetailsPage({
           alt="Movie Poster"
           width={150}
           height={220}
-          style={{
-            borderRadius: 10,
-          }}
         />
         <Ul>
           <Title>{movie.title}</Title>
-          <List><FontAwesomeIcon icon={faCalendarAlt} style={{marginRight: "0.8rem", fontSize: "1.2rem"}}/> {movie.release_date} </List>
-          <List><FontAwesomeIcon icon={faClock} style={{marginRight: "0.8rem", fontSize: "1.2rem"}}/>{movie.runtime} min</List>
-          <List><FontAwesomeIcon icon={faFilm} style={{marginRight: "0.8rem", fontSize: "1.2rem"}}/>{movie.genres[0].name} </List>
+          <List><StyledFontAwesomeIcon icon={faCalendarAlt} /> {movie.release_date} </List>
+          <List><StyledFontAwesomeIcon icon={faClock}/>{movie.runtime} min</List>
+          <List><StyledFontAwesomeIcon icon={faFilm}/>{movie.genres[0].name} </List>
           <List><FullStar width={15} style={{marginRight: "0.5rem", fontSize: "1.2rem"}}/>TMDB Rating: {movie.vote_average} /10</List>
           <List><FullStar width={15} style={{marginRight: "0.5rem", fontSize: "1.2rem"}}/>User Rating: {averageRating ? averageRating : 0} /10</List>
         </Ul>

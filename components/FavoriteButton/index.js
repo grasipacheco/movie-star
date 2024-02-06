@@ -6,7 +6,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   background: none;
   position: absolute;
-  bottom: 20px;
+  bottom: 12px;
   right: 40px;
   border: none;
   svg {

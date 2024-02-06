@@ -6,7 +6,6 @@ import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
   padding: 1.8rem;
-  /* background-color: var(--color-background-500); */
   border-radius: 1rem;
   position: relative;
   z-index: 0;
@@ -26,6 +25,15 @@ const ListAside = styled.section`
   align-content: space-between;
 `;
 
+const StyledImage = styled(Image)`
+border-radius: 10px;
+`
+
+const StyledFont = styled(FontAwesomeIcon)`
+margin-right: 0.8rem;
+font-size: 1.2rem;
+`
+
 const MovieCard = ({
   title,
   release,
@@ -43,15 +51,12 @@ const MovieCard = ({
   };
   return (
     <Wrapper>
-      <Image
+      <StyledImage
         src={`https://image.tmdb.org/t/p/original${image}`}
         alt="Movie Poster"
-        width={300}
+        width={300} 
         height={400}
         position="relative"
-        style={{
-          borderRadius: 10,
-        }}
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
@@ -61,9 +66,8 @@ const MovieCard = ({
       <ListAside>
         <MovieTitle>{title}</MovieTitle>
         <h3>
-          <FontAwesomeIcon
+          <StyledFont
             icon={faCalendarAlt}
-            style={{ marginRight: "0.8rem", fontSize: "1.2rem" }}
           />
           {release}
         </h3>
