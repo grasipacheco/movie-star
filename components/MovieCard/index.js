@@ -1,21 +1,38 @@
 import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "../FavoriteButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
-  padding: 2.4rem;
-  background-color: var(--color-background-500);
-  border-radius: 9px;
+  padding: 1.8rem;
+  border-radius: 1rem;
   position: relative;
   z-index: 0;
+  background-color: #5473a1;
+  box-shadow: 0.5rem 0.5rem var(--color-background-200);
+`;
+
+const MovieTitle = styled.h3`
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
 `;
 
 const ListAside = styled.section`
   text-decoration: none;
-  margin-top: 0.5rem;
   flex-direction: column;
   align-content: space-between;
 `;
+
+const StyledImage = styled(Image)`
+border-radius: 10px;
+`
+
+const StyledFont = styled(FontAwesomeIcon)`
+margin-right: 0.8rem;
+font-size: 1.2rem;
+`
 
 const MovieCard = ({
   title,
@@ -32,21 +49,24 @@ const MovieCard = ({
 
   return (
     <Wrapper>
-      <Image
+      <StyledImage
         src={`https://image.tmdb.org/t/p/original${image}`}
         alt="Movie Poster"
-        width={300}
+        width={300} 
         height={400}
+        position="relative"
       />
       <FavoriteButton
         ariaLabel="toggle FavoriteButton"
         onClick={handleFavoriteClick}
-      >
-        {localData.isFavorite ? "💙" : "🖤"}
-      </FavoriteButton>
       <ListAside>
-        <h3>{title}</h3>
-        <h4>{release}</h4>
+        <MovieTitle>{title}</MovieTitle>
+        <h3>
+          <StyledFont
+            icon={faCalendarAlt}
+          />
+          {release}
+        </h3>
       </ListAside>
     </Wrapper>
   );

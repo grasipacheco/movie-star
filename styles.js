@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default createGlobalStyle`
 :root {
@@ -11,7 +12,7 @@ export default createGlobalStyle`
     --color-background-500: #2b3035;
     --color-background-600: #e76f51;
     --color-background-900: #212529;
-    --color-text: #fff;
+    --color-text: #f0f0f0;
 
     --color-error-background: #ffe6e6;
 }
@@ -29,8 +30,8 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: system-ui;
-    background-color: var(--color-background-900);
+    font-family: 'Open Sans', sans-serif;
+    background-color: #001f3f;
     color: var(--color-text);
     padding: 0 0 8rem 0;
   }
